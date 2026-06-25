@@ -3,616 +3,110 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Conesta App</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>Gift Finder</title>
 
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-    }
-
-    :root {
-      --bg: #03070b;
-      --panel: rgba(7, 14, 24, 0.88);
-      --panel-2: rgba(10, 18, 30, 0.94);
-      --border: rgba(90, 130, 170, 0.18);
-      --soft-border: rgba(70, 255, 170, 0.16);
-      --text: #e7edf7;
-      --muted: #8fa2bd;
-      --faint: #5f6f86;
-      --green: #19d27c;
-      --green-2: #0ea565;
-      --green-glow: rgba(25, 210, 124, 0.38);
-      --blue-glow: rgba(55, 120, 255, 0.16);
-      --chip: rgba(255, 255, 255, 0.05);
-      --shadow: 0 20px 80px rgba(0, 0, 0, 0.55);
+      font-family: Arial, sans-serif;
     }
 
     body {
-      font-family: "Inter", sans-serif;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(25, 210, 124, 0.08), transparent 26%),
-        radial-gradient(circle at 80% 10%, rgba(55, 120, 255, 0.08), transparent 22%),
-        linear-gradient(180deg, #02060a 0%, #03070b 100%);
-      color: var(--text);
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: white;
       min-height: 100vh;
-      overflow: hidden;
-    }
-
-    .app {
-      display: grid;
-      grid-template-columns: 260px 1fr;
-      height: 100vh;
-      position: relative;
-    }
-
-    .topbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 56px;
       display: flex;
-      align-items: center;
       justify-content: center;
-      color: rgba(255,255,255,0.24);
-      font-size: 14px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      background: rgba(1, 6, 10, 0.35);
-      backdrop-filter: blur(10px);
-      z-index: 2;
-    }
-
-    .topbar .live {
-      position: absolute;
-      right: 24px;
-      color: #29d98c;
-      font-weight: 700;
-      letter-spacing: 0.03em;
-      text-transform: none;
-    }
-
-    .sidebar {
-      margin-top: 56px;
-      padding: 22px 18px;
-      border-right: 1px solid rgba(255,255,255,0.06);
-      background: linear-gradient(180deg, rgba(4, 10, 16, 0.92), rgba(3, 8, 12, 0.98));
-      position: relative;
-    }
-
-    .brand {
-      display: flex;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 24px;
     }
 
-    .brand-logo {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, #1df89b, #0a5a3d 70%, #06271d 100%);
-      box-shadow: 0 0 25px rgba(25, 210, 124, 0.35);
-      position: relative;
+    .container {
+      text-align: center;
+      max-width: 700px;
+      padding: 40px;
     }
 
-    .brand-logo::after {
-      content: "";
-      position: absolute;
-      inset: 9px;
-      border-radius: 50%;
-      border: 2px solid rgba(0,0,0,0.45);
-    }
-
-    .profile {
-      margin-bottom: 22px;
-    }
-
-    .profile h3 {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    .profile p {
-      color: var(--faint);
-      font-size: 13px;
-    }
-
-    .search {
-      width: 100%;
-      padding: 14px 14px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.05);
-      background: rgba(255,255,255,0.03);
-      color: var(--muted);
-      outline: none;
-      margin-bottom: 18px;
-    }
-
-    .stats {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
+    h1 {
+      font-size: 3rem;
       margin-bottom: 20px;
+      color: #38bdf8;
     }
 
-    .pill {
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.06);
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .pill.green {
-      color: #38ef9b;
-      box-shadow: inset 0 0 0 1px rgba(25, 210, 124, 0.15), 0 0 22px rgba(25, 210, 124, 0.08);
-      background: rgba(13, 71, 45, 0.22);
-    }
-
-    .menu {
-      margin-top: 24px;
-      display: grid;
-      gap: 6px;
-    }
-
-    .menu a {
-      color: #72839a;
-      text-decoration: none;
-      padding: 14px 16px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      transition: 0.25s ease;
-      border: 1px solid transparent;
-    }
-
-    .menu a:hover,
-    .menu a.active {
-      color: #b6ffe0;
-      background: rgba(8, 60, 40, 0.18);
-      border-color: rgba(25, 210, 124, 0.25);
-      box-shadow:
-        inset 0 0 0 1px rgba(25, 210, 124, 0.08),
-        0 0 28px rgba(25, 210, 124, 0.08);
-    }
-
-    .menu a span {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: currentColor;
-      opacity: 0.8;
-    }
-
-    .main {
-      margin-top: 56px;
-      position: relative;
-      overflow: hidden;
-      background:
-        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-      background-size: 70px 70px;
-    }
-
-    .main::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(1, 5, 8, 0.56);
-    }
-
-    .ghost-card {
-      position: absolute;
-      right: 8%;
-      top: 18%;
-      width: 260px;
-      height: 180px;
-      border-radius: 24px;
-      border: 1px solid rgba(25, 210, 124, 0.12);
-      background: rgba(10, 20, 18, 0.16);
-      box-shadow: 0 0 30px rgba(25, 210, 124, 0.07);
-      opacity: 0.5;
-    }
-
-    .modal-wrap {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 30px;
-      z-index: 1;
-    }
-
-    .modal {
-      width: min(780px, 100%);
-      max-height: 90vh;
-      overflow: auto;
-      border-radius: 18px;
-      background: linear-gradient(180deg, rgba(6, 14, 25, 0.96), rgba(4, 11, 20, 0.98));
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow), 0 0 0 1px rgba(255,255,255,0.03) inset;
-      padding: 24px;
-      position: relative;
-    }
-
-    .modal::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    .modal::-webkit-scrollbar-thumb {
-      background: rgba(255,255,255,0.16);
-      border-radius: 999px;
-    }
-
-    .close {
-      position: absolute;
-      top: 18px;
-      right: 18px;
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      color: #c9d3e2;
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.08);
-      cursor: pointer;
-    }
-
-    .top-tags {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 14px;
-      flex-wrap: wrap;
-    }
-
-    .tag {
-      padding: 8px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.1);
-      background: rgba(255,255,255,0.03);
-      color: #f1f6ff;
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .heading {
-      font-size: clamp(30px, 5vw, 42px);
-      line-height: 1.1;
-      margin-bottom: 14px;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-    }
-
-    .subtext {
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1.7;
-      max-width: 650px;
-      margin-bottom: 24px;
-    }
-
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-      align-items: center;
+    p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: #cbd5e1;
       margin-bottom: 30px;
     }
 
-    .step {
-      height: 56px;
-      border-radius: 14px;
-      background: linear-gradient(180deg, rgba(12, 65, 43, 0.55), rgba(8, 42, 30, 0.72));
-      border: 1px solid rgba(25, 210, 124, 0.12);
-      color: #37f09d;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      font-weight: 600;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
-    }
-
-    .step.active {
-      background: rgba(10, 24, 38, 0.95);
-      border: 1px solid rgba(61, 182, 255, 0.5);
-      color: #4ee69c;
-      box-shadow: 0 0 25px rgba(34, 143, 255, 0.16);
-    }
-
-    .section-note {
-      color: #9eb2ca;
-      font-family: monospace;
-      font-size: 15px;
-      margin-bottom: 18px;
-    }
-
-    .back-link {
-      color: #2fe48a;
+    .btn {
+      display: inline-block;
+      padding: 15px 30px;
+      background: #38bdf8;
+      color: #0f172a;
       text-decoration: none;
-      font-size: 14px;
-      float: right;
-      margin-bottom: 14px;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: 0.3s;
     }
 
-    .info-box {
-      clear: both;
-      padding: 18px;
-      border-radius: 18px;
-      background:
-        linear-gradient(180deg, rgba(13, 69, 48, 0.38), rgba(8, 40, 31, 0.52));
-      border: 1px solid rgba(25, 210, 124, 0.18);
-      box-shadow: inset 0 0 0 1px rgba(25, 210, 124, 0.04);
-      margin-bottom: 24px;
+    .btn:hover {
+      background: #0ea5e9;
+      transform: translateY(-3px);
     }
 
-    .info-box .mini {
-      color: #22d37d;
-      text-transform: uppercase;
-      font-size: 12px;
-      letter-spacing: 0.22em;
-      font-weight: 700;
+    .features {
+      margin-top: 50px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.1);
+      padding: 20px;
+      border-radius: 10px;
+      backdrop-filter: blur(5px);
+    }
+
+    .card h3 {
       margin-bottom: 10px;
-    }
-
-    .info-box p {
-      color: #aab9cc;
-      line-height: 1.65;
-      font-size: 15px;
-    }
-
-    .field {
-      margin-bottom: 18px;
-    }
-
-    .label {
-      display: block;
-      color: #8ca0bb;
-      font-size: 14px;
-      margin-bottom: 10px;
-      font-weight: 500;
-    }
-
-    .input {
-      width: 100%;
-      height: 58px;
-      border-radius: 14px;
-      border: 1px solid rgba(130, 155, 195, 0.22);
-      background: rgba(5, 12, 22, 0.94);
-      color: #eaf3ff;
-      padding: 0 18px;
-      outline: none;
-      font-size: 16px;
-      transition: 0.25s ease;
-    }
-
-    .input:focus {
-      border-color: rgba(60, 184, 255, 0.72);
-      box-shadow: 0 0 0 4px rgba(48, 140, 255, 0.12);
-    }
-
-    .input::placeholder {
-      color: #647891;
-    }
-
-    .cta {
-      margin-top: 8px;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      height: 54px;
-      padding: 0 22px;
-      border-radius: 14px;
-      border: none;
-      background: linear-gradient(180deg, #1cc97a, #10965b);
-      color: #eafff4;
-      font-size: 18px;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow:
-        0 10px 30px rgba(17, 158, 96, 0.28),
-        inset 0 1px 0 rgba(255,255,255,0.2);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .cta:hover {
-      transform: translateY(-2px);
-      box-shadow:
-        0 16px 38px rgba(17, 158, 96, 0.34),
-        inset 0 1px 0 rgba(255,255,255,0.24);
-    }
-
-    .divider {
-      height: 1px;
-      background: rgba(255,255,255,0.08);
-      margin-top: 20px;
-    }
-
-    .floating-help {
-      position: absolute;
-      left: 18px;
-      bottom: 18px;
-      padding: 12px 16px;
-      border-radius: 999px;
-      color: #9dddbd;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.03);
-      box-shadow: 0 0 25px rgba(25, 210, 124, 0.06);
-      z-index: 3;
-      backdrop-filter: blur(8px);
-    }
-
-    .glow-line {
-      position: absolute;
-      left: 18px;
-      right: 18px;
-      top: 290px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(25, 210, 124, 0.35), transparent);
-      filter: blur(0.2px);
-    }
-
-    @media (max-width: 980px) {
-      .app {
-        grid-template-columns: 1fr;
-      }
-
-      .sidebar {
-        display: none;
-      }
-
-      .steps {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .modal {
-        padding: 20px;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .topbar {
-        font-size: 11px;
-        letter-spacing: 0.12em;
-      }
-
-      .heading {
-        font-size: 28px;
-      }
-
-      .subtext {
-        font-size: 14px;
-      }
-
-      .steps {
-        grid-template-columns: 1fr;
-      }
-
-      .input {
-        height: 52px;
-        font-size: 15px;
-      }
-
-      .cta {
-        width: 100%;
-        justify-content: center;
-        font-size: 16px;
-      }
-
-      .modal-wrap {
-        padding: 12px;
-      }
+      color: #38bdf8;
     }
   </style>
 </head>
 <body>
-  <div class="topbar">
-    Build your own AI web application
-    <div class="live">● Live</div>
+
+  <div class="container">
+    <h1>🎁 Gift Finder</h1>
+
+    <p>
+      Gift Finder is an AI-powered web application that helps users
+      discover perfect gift ideas based on age, interests, occasion,
+      and budget.
+    </p>
+
+    <a href="#" class="btn">Find a Gift</a>
+
+    <div class="features">
+      <div class="card">
+        <h3>🎂 Occasion Based</h3>
+        <p>Get gifts for birthdays, anniversaries, weddings, and more.</p>
+      </div>
+
+      <div class="card">
+        <h3>💰 Budget Friendly</h3>
+        <p>Find suitable gifts within your preferred budget.</p>
+      </div>
+
+      <div class="card">
+        <h3>🤖 AI Recommendations</h3>
+        <p>Receive personalized gift suggestions instantly.</p>
+      </div>
+    </div>
   </div>
 
-  <div class="app">
-    <aside class="sidebar">
-      <div class="brand">
-        <div class="brand-logo"></div>
-        <div>
-          <div style="font-weight:800;color:#baffde;">DayX</div>
-          <div style="font-size:12px;color:#5f6f86;">Builder Space</div>
-        </div>
-      </div>
-
-      <div class="profile">
-        <h3>Samuel Kingston</h3>
-        <p>Builder</p>
-      </div>
-
-      <input class="search" type="text" placeholder="Gift Finder" />
-
-      <div class="stats">
-        <div class="pill green">₹ 547 +140 today</div>
-        <div class="pill">1,387</div>
-        <div class="pill">68</div>
-        <div class="pill">4 days</div>
-      </div>
-
-      <nav class="menu">
-        <a href="#"><span></span>Home</a>
-        <a href="#" class="active"><span></span>Board</a>
-        <a href="#"><span></span>Rooms</a>
-        <a href="#"><span></span>Channels</a>
-        <a href="#"><span></span>Announcements</a>
-        <a href="#"><span></span>Leaderboard</a>
-        <a href="#"><span></span>Share</a>
-      </nav>
-    </aside>
-
-    <main class="main">
-      <div class="ghost-card"></div>
-      <div class="glow-line"></div>
-
-      <div class="modal-wrap">
-        <section class="modal">
-          <button class="close">&times;</button>
-
-          <div class="top-tags">
-            <div class="tag">Day 1</div>
-            <div class="tag">Build</div>
-          </div>
-
-          <h1 class="heading">Day 1: Spec &amp; Foundation</h1>
-          <p class="subtext">
-            Create a GitHub repo. Write a README that states the spec, core screens, and commit a scaffolded app that actually runs.
-          </p>
-
-          <div class="steps">
-            <div class="step">○ Learn</div>
-            <div class="step">○ Check</div>
-            <div class="step">○ Build</div>
-            <div class="step active">⇪ Ship</div>
-          </div>
-
-          <div class="section-note">An AI judge reviews your repo</div>
-          <a href="#" class="back-link">‹ Back to Build</a>
-
-          <div class="info-box">
-            <div class="mini">Ship your GitHub repo</div>
-            <p>
-              Paste the public GitHub repo URL for your build. An AI judge reads the code against the rubric and decides pass/fail — that's what banks your points.
-            </p>
-          </div>
-
-          <div class="field">
-            <label class="label">GitHub repo URL</label>
-            <input class="input" type="text" placeholder="https://github.com/you/your-app" />
-          </div>
-
-          <div class="field">
-            <label class="label">Deployed URL (optional)</label>
-            <input class="input" type="text" placeholder="https://your-deployed-app.com" />
-          </div>
-
-          <button class="cta">✦ Ship for AI judging</button>
-
-          <div class="divider"></div>
-        </section>
-      </div>
-    </main>
-  </div>
-
-  <div class="floating-help">Need help? • Live</div>
 </body>
 </html>
