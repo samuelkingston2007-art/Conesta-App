@@ -1,21 +1,21 @@
-# Conesta App
+# Gift Finder
 
 ## Overview
 
-Conesta App is a web application built using HTML, CSS, and JavaScript. The application provides a modern and responsive user interface.
+Gift Finder is a web application that helps users discover suitable gifts based on recipient details, interests, age group, occasion, and budget.
 
 ## Features
 
-* Responsive design
-* Interactive user interface
-* Modern layout
-* Easy navigation
+* Search for gifts based on interests.
+* Filter gifts by budget.
+* Select gifts according to occasions such as birthdays, anniversaries, and holidays.
+* Responsive user interface.
 
 ## Core Screens
 
-1. Home Screen
-2. Build Submission Screen
-3. Review Status Screen
+1. Home Screen - Welcome page and search form.
+2. Gift Results Screen - Displays recommended gifts.
+3. Gift Details Screen - Shows detailed information about a selected gift.
 
 ## Technologies Used
 
@@ -25,9 +25,11 @@ Conesta App is a web application built using HTML, CSS, and JavaScript. The appl
 
 ## How to Run
 
-1. Clone or download the repository.
-2. Open `index.html` in any web browser.
+1. Clone the repository.
+2. Open `index.html` in a web browser.
 
-## Author
+## Future Improvements
 
-Samuel Kingston
+* Add user authentication.
+* Integrate APIs for real product recommendations.
+* Add wishlist functionality.
