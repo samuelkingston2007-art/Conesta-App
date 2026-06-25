@@ -1,174 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ship Your GitHub Repo</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Under Review</title>
 
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:Arial, sans-serif;
-    }
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
 
-    body{
-      background:#050b15;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      min-height:100vh;
-      color:#fff;
-    }
+body{
+    background:#040b14;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#fff;
+}
 
-    .modal{
-      width:850px;
-      background:#09111d;
-      border:1px solid rgba(255,255,255,0.1);
-      border-radius:18px;
-      padding:30px;
-      box-shadow:0 0 30px rgba(0,0,0,0.5);
-    }
+.modal{
+    width:840px;
+    background:#07111d;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:18px;
+    padding:30px;
+}
 
-    .badge{
-      display:inline-block;
-      padding:8px 18px;
-      border:1px solid rgba(255,255,255,0.15);
-      border-radius:30px;
-      margin-right:10px;
-      font-weight:600;
-      font-size:14px;
-    }
+.badges{
+    display:flex;
+    gap:10px;
+}
 
-    h1{
-      margin:20px 0 10px;
-      font-size:42px;
-    }
+.badge{
+    border:1px solid rgba(255,255,255,.15);
+    padding:8px 16px;
+    border-radius:30px;
+    font-weight:600;
+}
 
-    .subtitle{
-      color:#9ca3af;
-      font-size:18px;
-      line-height:1.6;
-      margin-bottom:35px;
-    }
+h1{
+    margin-top:18px;
+    font-size:48px;
+}
 
-    .steps{
-      display:flex;
-      gap:15px;
-      margin-bottom:40px;
-    }
+.subtitle{
+    color:#94a3b8;
+    margin-top:12px;
+    line-height:1.6;
+    font-size:20px;
+}
 
-    .step{
-      flex:1;
-      background:#0d4028;
-      color:#5ff28b;
-      text-align:center;
-      padding:16px;
-      border-radius:10px;
-      font-weight:600;
-    }
+.steps{
+    display:flex;
+    gap:14px;
+    margin:35px 0 45px;
+}
 
-    .green-box{
-      background:#0d2f1f;
-      border:1px solid rgba(64,255,128,0.25);
-      border-radius:18px;
-      padding:25px;
-      margin-bottom:30px;
-    }
+.step{
+    flex:1;
+    background:#0d3a27;
+    color:#20d96a;
+    padding:15px;
+    border-radius:12px;
+    text-align:center;
+    font-weight:bold;
+}
 
-    .green-box h3{
-      color:#47ff83;
-      letter-spacing:2px;
-      margin-bottom:15px;
-      font-size:14px;
-    }
+.step.active{
+    border:1px solid #0ea5e9;
+}
 
-    .green-box p{
-      color:#b5c1ce;
-      line-height:1.6;
-      font-size:20px;
-    }
+.review-box{
+    background:#041923;
+    border:1px solid rgba(0,255,200,.3);
+    border-radius:22px;
+    padding:70px 40px;
+    text-align:center;
+}
 
-    label{
-      display:block;
-      margin:25px 0 10px;
-      color:#b7c0cc;
-      font-size:16px;
-    }
+.loader{
+    width:55px;
+    height:55px;
+    border:5px solid transparent;
+    border-top:5px solid #2dd4bf;
+    border-right:5px solid #2dd4bf;
+    border-radius:50%;
+    margin:0 auto 25px;
+    animation:spin 1s linear infinite;
+}
 
-    input{
-      width:100%;
-      background:transparent;
-      border:1px solid rgba(255,255,255,0.12);
-      border-radius:12px;
-      padding:18px;
-      color:#fff;
-      font-size:20px;
-      outline:none;
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
     }
+}
 
-    input:focus{
-      border-color:#16c172;
-    }
+.review-box h2{
+    color:#2dd4bf;
+    font-size:42px;
+    margin-bottom:25px;
+}
 
-    .btn{
-      margin-top:35px;
-      background:#10b565;
-      color:white;
-      border:none;
-      padding:18px 35px;
-      border-radius:14px;
-      font-size:22px;
-      font-weight:bold;
-      cursor:pointer;
-    }
+.review-box p{
+    color:#94a3b8;
+    font-size:24px;
+    line-height:1.5;
+    margin-bottom:35px;
+}
 
-    .btn:hover{
-      background:#0f9d59;
-    }
-  </style>
+.btn{
+    background:transparent;
+    color:#fff;
+    border:1px solid rgba(255,255,255,.2);
+    padding:16px 34px;
+    border-radius:14px;
+    font-size:20px;
+    cursor:pointer;
+}
+
+.footer{
+    margin-top:35px;
+    border-top:1px solid rgba(255,255,255,.08);
+    padding-top:25px;
+    color:#94a3b8;
+    font-size:18px;
+}
+</style>
 </head>
 <body>
 
-  <div class="modal">
+<div class="modal">
 
-    <span class="badge">Day 1</span>
-    <span class="badge">Build</span>
+    <div class="badges">
+        <div class="badge">Day 1</div>
+        <div class="badge">Build</div>
+    </div>
 
     <h1>Day 1: Spec & Foundation</h1>
 
     <p class="subtitle">
-      Create a GitHub repo. Write a README that states the spec
-      (what it does, the core screens) and commit a scaffolded app
-      that actually runs.
+        Create a GitHub repo. Write a README that states the spec
+        (what it does, the core screens) and commit a scaffolded app
+        that actually runs.
     </p>
 
     <div class="steps">
-      <div class="step">✓ Learn</div>
-      <div class="step">✓ Check</div>
-      <div class="step">✓ Build</div>
-      <div class="step">⇪ Ship</div>
+        <div class="step">✓ Learn</div>
+        <div class="step">✓ Check</div>
+        <div class="step">✓ Build</div>
+        <div class="step active">⇪ Ship</div>
     </div>
 
-    <div class="green-box">
-      <h3>SHIP YOUR GITHUB REPO</h3>
-      <p>
-        Paste the public GitHub repo URL for your build.
-        An AI judge reads the code against the rubric and
-        decides pass/fail — that's what banks your points.
-      </p>
+    <div class="review-box">
+        <div class="loader"></div>
+
+        <h2>Under review</h2>
+
+        <p>
+            repo_url is empty, not a github.com URL,
+            or malformed — needs organizer review.
+        </p>
+
+        <button class="btn">Back to Board</button>
     </div>
 
-    <label>GitHub repo URL</label>
-    <input type="text" placeholder="https://github.com/you/your-app">
+    <div class="footer">
+        ⚙ Ask Cinder / Sage (AI tutor)
+    </div>
 
-    <label>Deployed URL (optional)</label>
-    <input type="text" placeholder="https://your-deployed-app.com">
-
-    <button class="btn">✨ Ship for AI Judging</button>
-
-  </div>
+</div>
 
 </body>
 </html>
