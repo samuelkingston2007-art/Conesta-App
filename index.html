@@ -1,76 +1,161 @@
+```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Gift Finder</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Gift Finder</title>
+
 <style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
 body{
-font-family:Arial,sans-serif;
-background:#0f172a;
-color:white;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-margin:0;
+    background:#0f172a;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
 }
+
 .container{
-background:#1e293b;
-padding:40px;
-border-radius:15px;
-text-align:center;
-width:400px;
+    width:500px;
+    background:#1e293b;
+    padding:40px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.4);
 }
+
+h1{
+    text-align:center;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#cbd5e1;
+    margin-bottom:30px;
+}
+
 input,select,button{
-width:100%;
-padding:12px;
-margin:10px 0;
-border:none;
-border-radius:8px;
+    width:100%;
+    padding:14px;
+    margin-bottom:15px;
+    border:none;
+    border-radius:10px;
+    font-size:16px;
 }
+
+input,select{
+    background:#334155;
+    color:white;
+}
+
 button{
-background:#22c55e;
-color:white;
-cursor:pointer;
+    background:#22c55e;
+    color:white;
+    cursor:pointer;
+    font-weight:bold;
 }
-#result{
-margin-top:20px;
-font-size:20px;
-color:#22c55e;
+
+button:hover{
+    background:#16a34a;
+}
+
+.result{
+    margin-top:25px;
+    background:#334155;
+    padding:20px;
+    border-radius:12px;
+    display:none;
+}
+
+.result h2{
+    color:#22c55e;
+    margin-bottom:10px;
 }
 </style>
 </head>
 <body>
 
 <div class="container">
-<h1>Gift Finder</h1>
 
-<select id="occasion">
-<option>Birthday</option>
-<option>Anniversary</option>
-<option>Christmas</option>
-</select>
+    <h1>🎁 AI Gift Finder</h1>
 
-<input type="number" id="budget" placeholder="Enter Budget">
+    <p class="subtitle">
+        Get AI-powered gift recommendations.
+    </p>
 
-<button onclick="findGift()">Find Gift</button>
+    <input type="number" id="age" placeholder="Recipient Age">
 
-<div id="result"></div>
+    <select id="occasion">
+        <option>Birthday</option>
+        <option>Anniversary</option>
+        <option>Christmas</option>
+        <option>Graduation</option>
+    </select>
+
+    <input type="text" id="interest"
+           placeholder="Recipient Interest (gaming, books, music...)">
+
+    <input type="number" id="budget"
+           placeholder="Budget in ₹">
+
+    <button onclick="generateGift()">
+        Generate AI Recommendation
+    </button>
+
+    <div class="result" id="result"></div>
+
 </div>
 
 <script>
-function findGift(){
-let budget=document.getElementById("budget").value;
+function generateGift(){
 
-let gift="Greeting Card";
+    let age = parseInt(document.getElementById("age").value);
+    let interest = document.getElementById("interest").value.toLowerCase();
+    let budget = parseInt(document.getElementById("budget").value);
 
-if(budget>=500) gift="Smart Watch";
-else if(budget>=200) gift="Perfume";
-else if(budget>=100) gift="Chocolate Box";
+    let recommendation = "";
 
-document.getElementById("result").innerHTML=
-"Recommended Gift: "+gift;
+    if(interest.includes("gaming")){
+        recommendation = "Gaming Headset";
+    }
+    else if(interest.includes("books")){
+        recommendation = "Bestselling Book Collection";
+    }
+    else if(interest.includes("music")){
+        recommendation = "Wireless Earbuds";
+    }
+    else if(age < 15){
+        recommendation = "Educational Toy Set";
+    }
+    else if(budget > 5000){
+        recommendation = "Smart Watch";
+    }
+    else{
+        recommendation = "Personalized Gift Hamper";
+    }
+
+    document.getElementById("result").style.display="block";
+
+    document.getElementById("result").innerHTML = `
+        <h2>🤖 AI Recommendation</h2>
+        <p><strong>Recommended Gift:</strong> ${recommendation}</p>
+        <br>
+        <p>
+        Based on the recipient's age, interests, occasion,
+        and budget, our AI suggests this gift as the best match.
+        </p>
+    `;
 }
 </script>
 
 </body>
 </html>
+```
